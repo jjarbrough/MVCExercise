@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVCDemo.Models;
 
 namespace MVCDemo.Controllers
 {
@@ -22,5 +23,23 @@ namespace MVCDemo.Controllers
             var product = _repo.GetProduct(id);
             return View(product);
         }
+
+        public IActionResult UpdateProduct(int id)
+        {
+            Product prod = _repo.GetProduct(id);
+            if (prod == null)
+            {
+                return View("ProductNotFound");
+            }
+            return View(prod);
+        }
+
+        public IActionResult UpdateProductToDatabase(Product product)
+        {
+            _repo.UpdateProduct(product);
+
+            return RedirectToAction("ViewProduct", new { id = product.ProductID });
+        }
+
     }
 }
