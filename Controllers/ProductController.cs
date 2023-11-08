@@ -41,5 +41,16 @@ namespace MVCDemo.Controllers
             return RedirectToAction("ViewProduct", new { id = product.ProductID });
         }
 
+        public IActionResult InsertProduct()
+        {
+            var prod = _repo.AssignCategory();
+            return View(prod);
+        }
+
+        public IActionResult InsertProductToDatabase(Product productToInsert)
+        {
+            _repo.InsertProduct(productToInsert);
+            return RedirectToAction("Index");
+        }
     }
 }
